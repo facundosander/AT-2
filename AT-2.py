@@ -3,7 +3,7 @@ st.set_page_config(
     page_title="AutoComplete",
     page_icon="🦓",
 )
-st.title("AutoCompleteTransAct")
+st.title("AutoComplete")
 
 tab = st.sidebar.selectbox("Elige una opción", ["Inalámbricos", "Cableados"])
 
