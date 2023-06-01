@@ -1,6 +1,6 @@
 import streamlit as st
-import clipboard
-import re
+import clipboard as clipboard
+import re as re
 
 # Función para validar el RUT
 def validate_rut(rut):
@@ -49,16 +49,14 @@ departamentos_y_ciudades = {
 }
 
 with st.expander("Datos Cliente"):
-    cols1 = st.columns(2)
-    habilitacion = cols1[0].checkbox("Requiere habilitacion")
-    rut_col, btn_col = cols1[1].columns([3, 1])
-    empresa = rut_col.text_input("Empresa / RUT:")
-    btn_buscar = btn_col.button("Buscar")
-    cols1[0].markdown("&#32;") 
-    cols1[0].markdown("&#32;")
-    cols1[0].markdown("&#32;")
-    contacto = cols1[0].text_input("Contacto:")
-    telefono = cols1[1].text_input("Telefono:")
+    hab, rut_col, btn_col = st.columns([1, 1, 1])
+    habilitacion = hab.checkbox("Requiere habilitacion")
+    empresa = rut_col.text_input("Empresa:")
+    rut = btn_col.text_input("rut")
+    x, tel = st.columns([1,1])
+
+    contacto = x.text_input("Contacto:")
+    telefono = tel.text_input("Telefono:")
     correo_electronico = st.text_input("Correo electrónico:") 
 
 with st.expander("Direccion"):
@@ -70,24 +68,27 @@ with st.expander("Direccion"):
 # Cambiar 'Serie:' para aceptar formato xxx-xxx-xxx
 if tab == "Inalámbricos":
     with st.expander("Datos POS (Inalámbrico)"):
-        cols2 = st.columns(3)
-        modelo = cols2[0].selectbox("Modelo:", ["V240M-3G", "V240M-WIFI", "VX680-3G", "VX680-WIFI", "V400m-3G", "V400m-WIFI"])
-        serie = cols2[1].text_input("Serie:")
-        terminal = cols2[2].text_input("Terminal:")
-        cols2[0].divider()
-        cols2[1].divider()
-        cols2[2].divider()
-        modelo_enviar = cols2[0].selectbox("Modelo a enviar:", ["V240M-3G", "V240M-WIFI", "V400m-3G", "V400m-WIFI", "V200T Eth", "VX820 USB", "P400 USB", "VX820 Eth", "P400 Eth"])
-        portador = cols2[1].selectbox("Portador:", ["Express", "Combustible"])
+        mod, ser, ter = st.columns([1,1,1])
+        modelo = mod.selectbox("Modelo:", ["V240M-3G", "V240M-WIFI", "VX680-3G", "VX680-WIFI", "V400m-3G", "V400m-WIFI"])
+        serie = ser.text_input("Serie:")
+        terminal = ter.text_input("Terminal:")
+        x, y, z = st.columns([1,1,1])
+        x.divider()
+        y.divider()
+        z.divider()
+        env, por, comp = st.columns([1,1,1])
+        modelo_enviar = env.selectbox("Modelo a enviar:", ["V240M-3G", "V240M-WIFI", "V400m-3G", "V400m-WIFI", "V200T Eth", "VX820 USB", "P400 USB", "VX820 Eth", "P400 Eth"])
+        portador = por.selectbox("Portador:", ["Express", "Combustible"])
         if '3G' in modelo_enviar:
-            compania_chip = cols2[2].selectbox("Compañía de chip:", ["ANTEL", "CLARO", "MOVISTAR"]) 
+            compania_chip = comp.selectbox("Compañía de chip:", ["ANTEL", "CLARO", "MOVISTAR"]) 
         else:
-            compania_chip = cols2[2].selectbox("Compañía de chip:", [])
-        remplazar = cols2[0].checkbox("Remplazar")
-        con_fuente = cols2[1].checkbox("Con fuente")
+            compania_chip = comp.selectbox("Compañía de chip:", [])
+        remp , con , empty = st.columns([1,1,1])
+        remplazar = remp.checkbox("Remplazar")
+        con_fuente = con.checkbox("Con fuente")
         detalle_problema = st.text_area("Detalle del problema:")
     if st.button("Cargar Información Inalámbrico"):
-        output = f"""#Datos Cliente \r\nRut: {empresa}  \r\nContacto: {contacto}, {telefono}, {correo_electronico}  \r\nRequiere habilitacion: {"SI" if habilitacion is True else "NO"} \r\n \r\n#Datos Envio: \r\nDirrecion: {direccion}, {departamento}, {ciudad} \r\n \r\n#Datos pos (caso inalambrico): \r\nPos: {modelo}, {serie}, {terminal} \r\nModelo a enviar: {modelo_enviar}, {portador}, {"" if compania_chip is None else f", Operadora: {compania_chip}"} \r\nRemplazar: {"SI" if remplazar is True else "NO"}, Remplazar Fuente: {"SI" if con_fuente is True else "NO"} \r\nDetalle del problema: {detalle_problema} \r\n
+        output = f"""#Datos Cliente \r\nEmpresa: {empresa} \r\nRut: {rut} \r\nContacto: {contacto}, {telefono}, {correo_electronico}  \r\nRequiere habilitacion: {"SI" if habilitacion is True else "NO"} \r\n \r\n#Datos Envio: \r\nDirección: {direccion}, {departamento}, {ciudad} \r\n \r\n#Datos pos (caso inalambrico): \r\nPos: {modelo}, S/N:{serie}, {terminal} \r\nModelo a enviar: {modelo_enviar}, {portador}, {"" if compania_chip is None else f"Operadora: {compania_chip}"} \r\nRemplazar: {"SI" if remplazar is True else "NO"}, Fuente: {"SI" if con_fuente is True else "NO"} \r\nDetalle del problema: {detalle_problema} \r\n
 """
         clipboard.copy(output)
         st.text_area("Información cargada", value=output, height=250)
@@ -96,23 +97,26 @@ if tab == "Inalámbricos":
 
 elif tab == "Cableados":
     with st.expander("Datos POS (Cableado)"):
-        cols3 = st.columns(3)
-        modelo = cols3[0].selectbox("Modelo:", ["VX820", "P400"])
-        serie = cols3[1].text_input("Serie:")
-        terminal = cols3[2].text_input("Terminal:")
-        cols3[0].divider()
-        cols3[1].divider()
-        cols3[2].divider()
-        modelo_enviar = cols3[0].selectbox("Modelo a enviar:", [ "VX820 USB", "P400 USB", "VX820 Eth", "P400 Eth", "V240M-3G", "V240M-WIFI", "V400m-3G", "V400m-WIFI", "V200T Eth"])
-        cols3[1].markdown("&#32;")
-        cols3[1].markdown("&#32;")
-        cols3[1].markdown("&#32;")
-        remplazar = cols3[1].checkbox("Remplazar")
+        mod, ser, ter = st.columns([1,1,1])
+        modelo = mod.selectbox("Modelo:", [ "P400 USB", "VX820 USB", "P400 Eth" "VX820 Eth"])
+        serie = ser.text_input("Serie:")
+        terminal = ter.text_input("Terminal:")
+        d1, d2, d3 = st.columns([1,1,1])
+        d1.divider()
+        d2.divider()
+        d3.divider()
+        env, remp, x = st.columns([1,1,1])
+        modelo_enviar = env.selectbox("Modelo a enviar:", [ "P400 USB", "VX820 USB", "P400 Eth" "VX820 Eth", "V240M-3G", "V240M-WIFI", "V400m-3G", "V400m-WIFI", "V200T Eth"])
+        remp.markdown("&#32;")
+        remp.markdown("&#32;")
+        remp.markdown("&#32;")
+        remplazar = remp.checkbox("Remplazar")
         detalle_problema = st.text_area("Detalle del problema:")
 
     if st.button("Cargar Información Cableado"):
-        output = f"""#Datos Cliente \r\nRut: {empresa} \r\nContacto: {contacto}, {telefono}, {correo_electronico} \r\nRequiere habilitacion: {"SI" if habilitacion is True else "NO"} \r\n \r\n#Datos Envio: \r\nDirrecion: {direccion}, {departamento}, {ciudad} \r\n \r\n#Datos pos (caso cableado): \r\nPos: {modelo}, {serie}, {terminal} \r\nModelo a enviar: {modelo_enviar} \r\nRemplazar: {"SI" if remplazar is True else "NO"} \r\nDetalle del problema: {detalle_problema}
+        output = f"""#Datos Cliente \r\nEmpresa: {empresa} \r\nRut: {rut} \r\nContacto: {contacto}, {telefono}, {correo_electronico} \r\nRequiere habilitacion: {"SI" if habilitacion is True else "NO"} \r\n \r\n#Datos Envio: \r\nDirrcción: {direccion}, {departamento}, {ciudad} \r\n \r\n#Datos pos (caso cableado): \r\nPos: {modelo}, S/N:{serie}, {terminal} \r\nModelo a enviar: {modelo_enviar} \r\nRemplazar: {"SI" if remplazar is True else "NO"} \r\nDetalle del problema: {detalle_problema}
 """
         clipboard.copy(output)
         st.text_area("Información cargada", value=output, height=250)
         st.success("Información copiada al portapapeles.")
+        st.balloons()
