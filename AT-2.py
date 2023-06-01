@@ -86,7 +86,7 @@ if tab == "Inalámbricos":
 """
 
         st.text_area("Información cargada", value=output, height=250)
-        st.success("Información copiada al portapapeles.")
+        #st.success("Información copiada al portapapeles.")
         st.balloons()
 
 elif tab == "Cableados":
@@ -111,5 +111,5 @@ elif tab == "Cableados":
         output = f"""#Datos Cliente \r\nEmpresa: {empresa} \r\nRut: {rut} \r\nContacto: {contacto}, {telefono}, {correo_electronico} \r\nRequiere habilitacion: {"SI" if habilitacion is True else "NO"} \r\n \r\n#Datos Envio: \r\nDirrcción: {direccion}, {departamento}, {ciudad} \r\n \r\n#Datos pos (caso cableado): \r\nPos: {modelo}, S/N:{serie}, {terminal} \r\nModelo a enviar: {modelo_enviar} \r\nRemplazar: {"SI" if remplazar is True else "NO"} \r\nDetalle del problema: {detalle_problema}
 """
         st.text_area("Información cargada", value=output, height=250)
-        st.success("Información copiada al portapapeles.")
+        #st.success("Información copiada al portapapeles.")
         st.balloons()
