@@ -1,11 +1,12 @@
 import streamlit as st
+""""
 import clipboard as clipboard
 import re as re
 
 # Función para validar el RUT
 def validate_rut(rut):
     return True if re.match(r'^\d{12}$', rut) else False
-
+"""
 def get_all_clients():
     # Aquí debes obtener todos los datos de tus clientes desde tu base de datos.
     # Por ahora, esto solo retorna una lista de clientes ficticios.
@@ -90,7 +91,7 @@ if tab == "Inalámbricos":
     if st.button("Cargar Información Inalámbrico"):
         output = f"""#Datos Cliente \r\nEmpresa: {empresa} \r\nRut: {rut} \r\nContacto: {contacto}, {telefono}, {correo_electronico}  \r\nRequiere habilitacion: {"SI" if habilitacion is True else "NO"} \r\n \r\n#Datos Envio: \r\nDirección: {direccion}, {departamento}, {ciudad} \r\n \r\n#Datos pos (caso inalambrico): \r\nPos: {modelo}, S/N:{serie}, {terminal} \r\nModelo a enviar: {modelo_enviar}, {portador}, {"" if compania_chip is None else f"Operadora: {compania_chip}"} \r\nRemplazar: {"SI" if remplazar is True else "NO"}, Fuente: {"SI" if con_fuente is True else "NO"} \r\nDetalle del problema: {detalle_problema} \r\n
 """
-        clipboard.copy(output)
+
         st.text_area("Información cargada", value=output, height=250)
         st.success("Información copiada al portapapeles.")
         st.balloons()
@@ -116,7 +117,7 @@ elif tab == "Cableados":
     if st.button("Cargar Información Cableado"):
         output = f"""#Datos Cliente \r\nEmpresa: {empresa} \r\nRut: {rut} \r\nContacto: {contacto}, {telefono}, {correo_electronico} \r\nRequiere habilitacion: {"SI" if habilitacion is True else "NO"} \r\n \r\n#Datos Envio: \r\nDirrcción: {direccion}, {departamento}, {ciudad} \r\n \r\n#Datos pos (caso cableado): \r\nPos: {modelo}, S/N:{serie}, {terminal} \r\nModelo a enviar: {modelo_enviar} \r\nRemplazar: {"SI" if remplazar is True else "NO"} \r\nDetalle del problema: {detalle_problema}
 """
-        clipboard.copy(output)
+
         st.text_area("Información cargada", value=output, height=250)
         st.success("Información copiada al portapapeles.")
         st.balloons()
