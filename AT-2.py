@@ -1,21 +1,8 @@
 import streamlit as st
-
-def get_all_clients():
-    # Aquí debes obtener todos los datos de tus clientes desde tu base de datos.
-    # Por ahora, esto solo retorna una lista de clientes ficticios.
-    return [{'RUT': '123456789012', 'Contacto': 'Juan Perez', 'Telefono': '123456789', 'Correo electrónico': 'juan.perez@ejemplo.com', 'Habilitacion': True, 'Direccion': 'Calle 123', 'Ciudad': 'Ciudad', 'Departamento': 'Departamento'},
-            {'RUT': '987654321098', 'Contacto': 'Maria Rodriguez', 'Telefono': '987654321', 'Correo electrónico': 'maria.rodriguez@ejemplo.com', 'Habilitacion': False, 'Direccion': 'Avenida 456', 'Ciudad': 'Otra Ciudad', 'Departamento': 'Otro Departamento'}]
-
-def search_client(rut):
-    # Aquí debes buscar el cliente en tu base de datos según su RUT.
-    # Por ahora, esto solo retorna un cliente ficticio.
-    return {'RUT': rut, 'Contacto': 'Juan Perez', 'Telefono': '123456789', 'Correo electrónico': 'juan.perez@ejemplo.com', 'Habilitacion': True, 'Direccion': 'Calle 123', 'Ciudad': 'Ciudad', 'Departamento': 'Departamento'} if rut == '123456789012' else None
-
-def add_new_client(client_data):
-    # Aquí debes agregar un nuevo cliente a tu base de datos.
-    # Por ahora, esto solo imprime los datos del cliente.
-    print(client_data)
-
+st.set_page_config(
+    page_title="AutoComplete",
+    page_icon="🦓",
+)
 st.title("AutoCompleteTransAct")
 
 tab = st.sidebar.selectbox("Elige una opción", ["Inalámbricos", "Cableados"])
