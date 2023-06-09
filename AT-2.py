@@ -1,24 +1,4 @@
 import streamlit as st
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-
-scope = ["https://spreadsheets.google.com/feeds",
-         "https://www.googleapis.com/auth/spreadsheets",
-         "https://www.googleapis.com/auth/drive.file",
-         "https://www.googleapis.com/auth/drive"]
-
-creds = ServiceAccountCredentials.from_json_keyfile_name('at-2-389315-876ffd02d429.json', scope)
-client = gspread.authorize(creds)
-
-spreadsheet_id = '1l_vFOwU0EUksNJftA_6dbYqsDQb0LYq7bV5HKKAKKuw'  # replace with your spreadsheet ID
-sheet = client.open_by_key(spreadsheet_id).sheet1
-def write_to_sheet(data, sheet):
-    # 'data' es una lista de los valores que quieres escribir en la hoja
-    # 'sheet' es la hoja de cálculo donde quieres escribir los valores
-    # 'append_row' agrega los valores al final de la hoja
-    sheet.append_row(data)
-
-
 st.set_page_config(
     page_title="AutoComplete",
     page_icon="🦓",
@@ -50,11 +30,10 @@ departamentos_y_ciudades = {
 }
 
 with st.expander("Datos Cliente"):
-    hab, rut_col, btn_col, new_comp = st.columns([1, 1, 1, 1])
+    hab, rut_col, btn_col = st.columns([1, 1, 1])
     habilitacion = hab.checkbox("Requiere habilitacion")
     empresa = rut_col.text_input("Empresa:")
-    empresa_nueva = btn_col.checkbox("Empresa nueva")
-    rut = new_comp.text_input("rut")
+    rut = btn_col.text_input("rut")
     x, tel = st.columns([1,1])
 
     contacto = x.text_input("Contacto:")
@@ -96,10 +75,7 @@ if tab == "Inalámbricos":
         st.text_area("Información cargada", value=output, height=250)
         #st.success("Información copiada al portapapeles.")
         st.balloons()
-        # Reúne la información en una lista
-        data = [empresa, rut, contacto, telefono, correo_electronico, habilitacion, direccion, departamento, ciudad ]
-        # Llama a la función para escribir los datos en la hoja
-        write_to_sheet(data, sheet)
+
 elif tab == "Cableados":
     with st.expander("Datos POS (Cableado)"):
         mod, ser, ter = st.columns([1,1,1])
@@ -124,7 +100,3 @@ elif tab == "Cableados":
         st.text_area("Información cargada", value=output, height=250)
         #st.success("Información copiada al portapapeles.")
         st.balloons()
-        # Reúne la información en una lista
-        data = [empresa, rut, contacto, telefono, correo_electronico, habilitacion, direccion, departamento, ciudad ]
-        # Llama a la función para escribir los datos en la hoja
-        write_to_sheet(data, sheet)
