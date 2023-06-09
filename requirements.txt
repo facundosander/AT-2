@@ -1,4 +1,4 @@
-py -m pip install gspread
-py -m pip install oauth2client
-py -m pip install pandas
-py -m pip install streamlit
+py pip install gspread
+py pip install oauth2client
+py pip install pandas
+py pip install streamlit
