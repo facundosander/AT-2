@@ -51,15 +51,36 @@ departamentos_y_ciudades = {
 
 with st.expander("Datos Cliente"):
     hab, rut_col, btn_col, new_comp = st.columns([1, 1, 1, 1])
-    habilitacion = hab.checkbox("Requiere habilitacion")
-    empresa = rut_col.text_input("Empresa:")
-    empresa_nueva = btn_col.checkbox("Empresa nueva")
-    rut = new_comp.text_input("rut")
-    x, tel = st.columns([1,1])
-
-    contacto = x.text_input("Contacto:")
-    telefono = tel.text_input("Telefono:")
-    correo_electronico = st.text_input("Correo electrónico:") 
+    empresa_nueva = hab.checkbox("Empresa nueva")
+    if not empresa_nueva:
+        rows = sheet.get_all_records()
+        empresas = []
+        for row in rows:
+            empresas.append(row["Empresa"])    
+        empresa = rut_col.selectbox("Empresa:", list(empresas))
+        for row in rows:
+            if row['Empresa'] == empresa:
+                # Actualiza los campos de entrada (no se puede hacer directamente en Streamlit)
+                # Necesitarías usar una biblioteca de terceros o implementar tu propio servidor de estado para hacer esto
+                dRut = row['Rut']
+                dcontacto = row['contacto']
+                dtelefono = row['telefono']
+                dcorreo_electronico = row['correo_electronico']
+                break
+        x, tel = st.columns([1,1])
+        rut = btn_col.text_input("rut", value=dRut)
+        habilitacion = new_comp.checkbox("Requiere habilitacion")
+        contacto = x.text_input("Contacto:", value=dcontacto)
+        telefono = tel.text_input("Telefono:", value=dtelefono)
+        correo_electronico = st.text_input("Correo electrónico:", value=dcorreo_electronico) 
+    else:
+        empresa = rut_col.text_input("Empresa:")
+        rut = btn_col.text_input("rut")
+        habilitacion = new_comp.checkbox("Requiere habilitacion")
+        x, tel = st.columns([1,1])
+        contacto = x.text_input("Contacto:")
+        telefono = tel.text_input("Telefono:")
+        correo_electronico = st.text_input("Correo electrónico:") 
 
 with st.expander("Direccion"):
     cols4 = st.columns(2)
@@ -96,10 +117,11 @@ if tab == "Inalámbricos":
         st.text_area("Información cargada", value=output, height=250)
         #st.success("Información copiada al portapapeles.")
         st.balloons()
+        if empresa_nueva:
         # Reúne la información en una lista
-        data = [empresa, rut, contacto, telefono, correo_electronico, habilitacion, direccion, departamento, ciudad ]
-        # Llama a la función para escribir los datos en la hoja
-        write_to_sheet(data, sheet)
+            data = [empresa, rut, contacto, telefono, correo_electronico]
+            # Llama a la función para escribir los datos en la hoja
+            write_to_sheet(data, sheet)
 elif tab == "Cableados":
     with st.expander("Datos POS (Cableado)"):
         mod, ser, ter = st.columns([1,1,1])
@@ -125,6 +147,7 @@ elif tab == "Cableados":
         #st.success("Información copiada al portapapeles.")
         st.balloons()
         # Reúne la información en una lista
-        data = [empresa, rut, contacto, telefono, correo_electronico, habilitacion, direccion, departamento, ciudad ]
-        # Llama a la función para escribir los datos en la hoja
-        write_to_sheet(data, sheet)
+        if empresa_nueva:
+            data = [empresa, rut, contacto, telefono, correo_electronico]
+            # Llama a la función para escribir los datos en la hoja
+            write_to_sheet(data, sheet)
