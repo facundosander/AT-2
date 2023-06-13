@@ -97,7 +97,7 @@ if tab == "Inalámbricos":
         #st.success("Información copiada al portapapeles.")
         st.balloons()
         # Reúne la información en una lista
-        data = [empresa, rut, contacto, telefono, correo_electronico, habilitacion, direccion, departamento, ciudad ]
+        data = [empresa, rut, contacto, telefono, correo_electronico ]
         # Llama a la función para escribir los datos en la hoja
         write_to_sheet(data, sheet)
 elif tab == "Cableados":
@@ -125,6 +125,6 @@ elif tab == "Cableados":
         #st.success("Información copiada al portapapeles.")
         st.balloons()
         # Reúne la información en una lista
-        data = [empresa, rut, contacto, telefono, correo_electronico, habilitacion, direccion, departamento, ciudad ]
+        data = [empresa, rut, contacto, telefono, correo_electronico]
         # Llama a la función para escribir los datos en la hoja
         write_to_sheet(data, sheet)
