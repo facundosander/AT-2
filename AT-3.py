@@ -133,7 +133,7 @@ elif tab == "Cableados":
         d2.divider()
         d3.divider()
         env, remp, x = st.columns([1,1,1])
-        modelo_enviar = env.selectbox("Modelo a enviar:", [ "P400 USB", "VX820 USB", "P400 Eth" "VX820 Eth", "V240M-3G", "V240M-WIFI", "V400m-3G", "V400m-WIFI", "V200T Eth"])
+        modelo_enviar = env.selectbox("Modelo a enviar:", [ "P400 USB", "VX820 USB", "P400 Eth", "VX820 Eth", "V240M-3G", "V240M-WIFI", "V400m-3G", "V400m-WIFI", "V200T Eth"])
         remp.markdown("&#32;")
         remp.markdown("&#32;")
         remp.markdown("&#32;")
