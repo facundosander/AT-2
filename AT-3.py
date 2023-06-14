@@ -29,7 +29,7 @@ tab = st.sidebar.selectbox("Elige una opción", ["Inalámbricos", "Cableados"])
 
 departamentos_y_ciudades = {
     "Artigas": ["Artigas", "Bella Unión", "Tomás Gomensoro"],
-    "Canelones": ["Canelones", "Las Piedras", "Pando", "La Paz", "Santa Lucía"],
+    "Canelones": ["Canelones","Ciudad de la Costa", "Las Piedras", "Pando", "La Paz", "Santa Lucía"],
     "Cerro Largo": ["Melo", "Río Branco"],
     "Colonia": ["Colonia Del Sacramento", "Juan Lacaze", "Nueva Helvecia"],
     "Durazno": ["Durazno", "Villa del Carmen", "Sarandí del Yí"],
@@ -119,7 +119,7 @@ if tab == "Inalámbricos":
         st.balloons()
         if empresa_nueva:
         # Reúne la información en una lista
-            data = [empresa, rut, contacto, telefono, correo_electronico]
+            data = [empresa, rut, contacto, "/" + telefono, correo_electronico]
             # Llama a la función para escribir los datos en la hoja
             write_to_sheet(data, sheet)
 elif tab == "Cableados":
