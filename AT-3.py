@@ -125,7 +125,7 @@ if tab == "Inalámbricos":
 elif tab == "Cableados":
     with st.expander("Datos POS (Cableado)"):
         mod, ser, ter = st.columns([1,1,1])
-        modelo = mod.selectbox("Modelo:", [ "P400 USB", "VX820 USB", "P400 Eth" "VX820 Eth"])
+        modelo = mod.selectbox("Modelo:", [ "P400 USB", "VX820 USB", "P400 Eth", "VX820 Eth"])
         serie = ser.text_input("Serie:")
         terminal = ter.text_input("Terminal:")
         d1, d2, d3 = st.columns([1,1,1])
