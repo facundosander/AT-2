@@ -43,7 +43,7 @@ departamentos_y_ciudades = {
     "Rivera": ["Rivera"],
     "Rocha": ["Rocha", "Chuy", "Lascano"],
     "Salto": ["Salto", "Daymán", "Arapey"],
-    "San José": ["San José de Mayo"],
+    "San José": ["San José de Mayo", "Ciudad del Plata"],
     "Soriano": ["Mercedes", "Dolores"],
     "Tacuarembó": ["Tacuarembó", "Paso de los Toros"],
     "Treinta y Tres": ["Treinta y Tres"]
