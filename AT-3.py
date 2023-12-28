@@ -101,7 +101,7 @@ if tab == "Inalámbricos":
         z.divider()
         env, por, comp = st.columns([1,1,1])
         modelo_enviar = env.selectbox("Modelo a enviar:", ["V240M-3G", "V240M-WIFI", "V400m-3G", "V400m-WIFI", "V200T Eth", "VX820 USB", "P400 USB", "VX820 Eth", "P400 Eth"])
-        portador = por.selectbox("Tipo de perfil:", ["Común", "Combustible"])
+        portador = por.selectbox("Tipo de perfil:", ["Común", "Combustible", "E-POS"])
         if '3G' in modelo_enviar:
             compania_chip = comp.selectbox("Compañía de chip:", ["ANTEL", "CLARO", "MOVISTAR"]) 
         else:
